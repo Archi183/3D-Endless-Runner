@@ -5,9 +5,10 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float playerSpeed = 5f;
     [SerializeField] private float laneDiastance = 3f;
     [SerializeField] private float laneChangeSpeed = 6f;
-    [SerializeField] private float jumpForce = 6f;
+    [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float groundCheckDistance = 1.55f;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] Animator animator;
     private int currentLane = 0;
     private bool isOnGround = true;
 
@@ -15,7 +16,6 @@ public class PlayerController : MonoBehaviour {
     // System
     private void Update() {
         Debug.Log(isOnGround);
-        Debug.DrawRay(transform.position, Vector3.down * groundCheckDistance, Color.red);
         CheckGround();
         if (Input.GetKeyDown(KeyCode.A)) {
             currentLane--;
@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour {
 
     private void Jump() {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        animator.ResetTrigger("Jump");
+        animator.SetTrigger("Jump");
     }
 
     private void PlayerRun() {
@@ -54,8 +56,6 @@ public class PlayerController : MonoBehaviour {
     }
     private void CheckGround() {
         Vector3 origin = transform.position + Vector3.up * 0.5f;
-
-        Debug.DrawRay(origin, Vector3.down * groundCheckDistance, Color.red);
 
         if (Physics.Raycast(origin, Vector3.down, groundCheckDistance, groundLayer))
             isOnGround = true;
