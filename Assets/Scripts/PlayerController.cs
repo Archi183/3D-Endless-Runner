@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private float playerSpeed = 5f;
-    [SerializeField] private float laneDiastance = 3f;
-    [SerializeField] private float laneChangeSpeed = 6f;
-    [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float groundCheckDistance = 1.55f;
+    private float playerSpeed = 5f;
+    private float laneDiastance = 3f;
+    private float laneChangeSpeed = 6f;
+    private float jumpForce = 5f;
+    private float groundCheckDistance = 0.5f;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Animator animator;
     private int currentLane = 0;
