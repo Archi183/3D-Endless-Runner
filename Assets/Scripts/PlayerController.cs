@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
     private float playerSpeed = 5f;
-    private float laneDiastance = 3f;
+    private float laneDiastance = 2.5f;
     private float laneChangeSpeed = 6f;
     private float jumpForce = 5f;
     private float groundCheckDistance = 0.5f;
