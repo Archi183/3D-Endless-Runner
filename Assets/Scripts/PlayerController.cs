@@ -16,56 +16,46 @@ public class PlayerController : MonoBehaviour {
 
 
     // System
-    private void Update() {
-        Debug.Log(isOnGround);
-    }
-
     private void OnEnable() {
         inputManager.moveLeft += InputManager_moveLeft;
         inputManager.moveRight += InputManager_moveRight;
         inputManager.jump += InputManager_jump;
     }
-
     private void OnDisable() {
         inputManager.moveLeft -= InputManager_moveLeft;
         inputManager.moveRight -= InputManager_moveRight;
         inputManager.jump -= InputManager_jump;
     }
-
-    private void InputManager_moveLeft(object sender, EventArgs e) {
-        ChangeLane(-1);
+    private void Update() {
+        Debug.Log(isOnGround);
     }
-
-    private void InputManager_moveRight(object sender, EventArgs e) {
-        ChangeLane(1);
-    }
-
-    private void InputManager_jump(object sender, EventArgs e) {
-        if (!isOnGround) return;
-        Jump();
-    }
-
-    private void ChangeLane(int x) {
-        currentLane += x;
-        currentLane = Mathf.Clamp(currentLane, -1, 1);
-    }
-
     private void FixedUpdate() {
         PlayerRun();
         MoveToLane();
         CheckGround();
     }
-
+    private void InputManager_moveLeft(object sender, EventArgs e) {
+        ChangeLane(-1);
+    }
+    private void InputManager_moveRight(object sender, EventArgs e) {
+        ChangeLane(1);
+    }
+    private void InputManager_jump(object sender, EventArgs e) {
+        if (!isOnGround) return;
+        Jump();
+    }
+    private void ChangeLane(int x) {
+        currentLane += x;
+        currentLane = Mathf.Clamp(currentLane, -1, 1);
+    }
+    private void PlayerRun() {
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, playerSpeed);
+    }
     private void Jump() {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         animator.ResetTrigger("Jump");
         animator.SetTrigger("Jump");
     }
-
-    private void PlayerRun() {
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, playerSpeed);
-    }
-
     private void MoveToLane() {
     
         float targetX = currentLane * laneDiastance;

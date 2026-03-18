@@ -2,57 +2,58 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class TileScript : MonoBehaviour {
-    [SerializeField] private GameObject[] obstaclePrefabs;
-    [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private Transform obstacleParent;
-    
-    private TileSpawner tileSpawner;
+    // [SerializeField] private GameObject[] obstaclePrefabs;
+    // [SerializeField] private Transform[] spawnPoints;
+    // [SerializeField] private Transform obstacleParent;
+    private TileSpawner tileSpawner;    
     [SerializeField] private float tileDeleteTime = 2f;
 
-    void Start() {
-        tileSpawner = FindFirstObjectByType<TileSpawner>();
-
-        SpawnObstacle();
+    public void Init(TileSpawner spawner) {
+        this.tileSpawner = spawner;
     }
+
+    // void Start() {
+    //     SpawnObstacle();
+    // }
 
     private void OnTriggerEnter(Collider other) {
         if (!other.CompareTag("Player")) return;
-
         tileSpawner.SpawnTile();
-
         Destroy(transform.parent.gameObject, tileDeleteTime);
     }
 
-    private void SpawnObstacle() {
-        int obstacleCount = Random.Range(1, 4);
+    // private void SpawnObstacle() {
+    //     Debug.Log("Spawning tile");
 
-        List<int> used = new List<int>();
+    //     int obstacleCount = Random.Range(1, 4);
 
-        for (int i = 0; i < obstacleCount; i++){
-            int index;
+    //     List<int> used = new List<int>();
 
-            do {
-                index = Random.Range(0, spawnPoints.Length);
-            } while (used.Contains(index));
+    //     for (int i = 0; i < obstacleCount; i++){
+    //         int index;
 
-            used.Add(index);
+    //         do {
+    //             index = Random.Range(0, spawnPoints.Length);
+    //         } while (used.Contains(index));
 
-            Transform spawnPoint = spawnPoints[index];
+    //         used.Add(index);
 
-            Vector3 offset = new Vector3(Random.Range(-0.1f, 0.1f),0,Random.Range(-0.1f, 0.1f));
+    //         Transform spawnPoint = spawnPoints[index];
 
-            int obstacleIndex = Random.Range(0, obstaclePrefabs.Length);
-            GameObject obstacle = obstaclePrefabs[obstacleIndex];
+    //         Vector3 offset = new Vector3(Random.Range(-0.1f, 0.1f),0,Random.Range(-0.1f, 0.1f));
 
-            if (obstacleIndex == 3 || obstacleIndex == 4) {
-                GameObject obj = Instantiate(obstacle, spawnPoint.position + offset, Quaternion.identity);
-                obj.transform.SetParent(obstacleParent, true);     
-            } else {
-                Quaternion rotation = Quaternion.Euler(0, Random.Range(0, 4) * 90f, 0);
-                GameObject obj = Instantiate(obstacle, spawnPoint.position + offset, rotation);
-                obj.transform.SetParent(obstacleParent, true);      
-            }
-        }
-    }
+    //         int obstacleIndex = Random.Range(0, obstaclePrefabs.Length);
+    //         GameObject obstacle = obstaclePrefabs[obstacleIndex];
+
+    //         if (obstacleIndex == 3 || obstacleIndex == 4) {
+    //             GameObject obj = Instantiate(obstacle, spawnPoint.position + offset, Quaternion.identity);
+    //             obj.transform.SetParent(obstacleParent, true);     
+    //         } else {
+    //             Quaternion rotation = Quaternion.Euler(0, Random.Range(0, 4) * 90f, 0);
+    //             GameObject obj = Instantiate(obstacle, spawnPoint.position + offset, rotation);
+    //             obj.transform.SetParent(obstacleParent, true);      
+    //         }
+    //     }
+    // }
 
 }

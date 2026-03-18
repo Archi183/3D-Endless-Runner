@@ -190,23 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9625094cae4aa9a29ff9c3f5e5dd323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileScript
-  obstaclePrefabs:
-  - {fileID: 4482604817117895502, guid: f61f248ea99dfe602b82739efb2d4590, type: 3}
-  - {fileID: 3712453807264983175, guid: 2b62da3bae94364bfaf70e9af3a6fe9a, type: 3}
-  - {fileID: 4672797203201157687, guid: 2fdebf66006e75575bcdb2a12ddf318d, type: 3}
-  - {fileID: 6291094631541462245, guid: 8f57b99b94842ffb9a6968f75a3c9544, type: 3}
-  - {fileID: 6727610867286637415, guid: dfbb0850dcd38d1f0a9e0d1eb54e808a, type: 3}
-  spawnPoints:
-  - {fileID: 6297015403476159323}
-  - {fileID: 5027553110912566546}
-  - {fileID: 7900236361303126464}
-  - {fileID: 8866282944995559349}
-  - {fileID: 7405451011959959505}
-  - {fileID: 1321204088452524389}
-  - {fileID: 3972271030657860362}
-  - {fileID: 3754438828538968169}
-  - {fileID: 1675740330686068223}
-  obstacleParent: {fileID: 4615489336117739273}
   tileDeleteTime: 2
 --- !u!1 &1940571159278082745
 GameObject:
@@ -239,6 +222,69 @@ Transform:
   m_Children: []
   m_Father: {fileID: 116436520976924325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2360922049888233090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6228796562914001227}
+  - component: {fileID: 415902112206823567}
+  m_Layer: 0
+  m_Name: ObstacleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6228796562914001227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360922049888233090}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.33333334}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 116436520976924325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &415902112206823567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360922049888233090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae84968f4889a3dd8c6554d3aa186c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
+  obstaclePrefabs:
+  - {fileID: 4482604817117895502, guid: f61f248ea99dfe602b82739efb2d4590, type: 3}
+  - {fileID: 3712453807264983175, guid: 2b62da3bae94364bfaf70e9af3a6fe9a, type: 3}
+  - {fileID: 4672797203201157687, guid: 2fdebf66006e75575bcdb2a12ddf318d, type: 3}
+  - {fileID: 6291094631541462245, guid: 8f57b99b94842ffb9a6968f75a3c9544, type: 3}
+  - {fileID: 6727610867286637415, guid: dfbb0850dcd38d1f0a9e0d1eb54e808a, type: 3}
+  spawnPoints:
+  - {fileID: 6297015403476159323}
+  - {fileID: 5027553110912566546}
+  - {fileID: 7900236361303126464}
+  - {fileID: 8866282944995559349}
+  - {fileID: 7405451011959959505}
+  - {fileID: 1321204088452524389}
+  - {fileID: 3972271030657860362}
+  - {fileID: 3754438828538968169}
+  - {fileID: 1675740330686068223}
+  obstacleParent: {fileID: 4615489336117739273}
+  minObstacles: 0
+  maxObstacles: 6
 --- !u!1 &2614252211988361617
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +328,7 @@ Transform:
   - {fileID: 3754438828538968169}
   - {fileID: 1675740330686068223}
   - {fileID: 4615489336117739273}
+  - {fileID: 6228796562914001227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &498780403797834647

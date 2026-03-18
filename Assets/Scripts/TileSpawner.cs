@@ -10,13 +10,11 @@ public class TileSpawner : MonoBehaviour {
         for (int i=0; i<startingTiles; i++) {
             SpawnTile();
         }
-
     }
-
     public void SpawnTile() {
         Vector3 tileSpawnPosition = new Vector3(0, 0, spawnZ);
-        Instantiate(tilePrefab, tileSpawnPosition, Quaternion.identity);
+        GameObject tile = Instantiate(tilePrefab, tileSpawnPosition, Quaternion.identity);
+        tile.GetComponentInChildren<TileScript>().Init(this);
         spawnZ += tileLength;
     }
-
 }
