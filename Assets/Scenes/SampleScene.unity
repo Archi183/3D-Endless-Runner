@@ -576,7 +576,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   rb: {fileID: 783749479}
-  laneDiastance: 2.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

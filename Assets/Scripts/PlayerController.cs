@@ -1,6 +1,8 @@
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour {
+    [SerializeField] private GameInputManager inputManager;
     [SerializeField] private Rigidbody rb;
     private float playerSpeed = 5f;
     private float laneDiastance = 2.5f;
@@ -16,23 +18,42 @@ public class PlayerController : MonoBehaviour {
     // System
     private void Update() {
         Debug.Log(isOnGround);
-        CheckGround();
-        if (Input.GetKeyDown(KeyCode.A)) {
-            currentLane--;
-            currentLane = Mathf.Clamp(currentLane, -1, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.D)) {
-            currentLane++;
-            currentLane = Mathf.Clamp(currentLane, -1, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround) {    
-            Jump();
-        }
+    }
+
+    private void OnEnable() {
+        inputManager.moveLeft += InputManager_moveLeft;
+        inputManager.moveRight += InputManager_moveRight;
+        inputManager.jump += InputManager_jump;
+    }
+
+    private void OnDisable() {
+        inputManager.moveLeft -= InputManager_moveLeft;
+        inputManager.moveRight -= InputManager_moveRight;
+        inputManager.jump -= InputManager_jump;
+    }
+
+    private void InputManager_moveLeft(object sender, EventArgs e) {
+        ChangeLane(-1);
+    }
+
+    private void InputManager_moveRight(object sender, EventArgs e) {
+        ChangeLane(1);
+    }
+
+    private void InputManager_jump(object sender, EventArgs e) {
+        if (!isOnGround) return;
+        Jump();
+    }
+
+    private void ChangeLane(int x) {
+        currentLane += x;
+        currentLane = Mathf.Clamp(currentLane, -1, 1);
     }
 
     private void FixedUpdate() {
         PlayerRun();
         MoveToLane();
+        CheckGround();
     }
 
     private void Jump() {
