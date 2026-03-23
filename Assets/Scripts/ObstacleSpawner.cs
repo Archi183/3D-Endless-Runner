@@ -1,46 +1,62 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using System.Linq;
+
+public enum ObstacleType {
+    empty,
+    jump,
+    slide,
+    block
+}
 
 public class ObstacleSpawner : MonoBehaviour {
-    [SerializeField] private GameObject[] obstaclePrefabs;
+    [SerializeField] private ObstacleSO[] obstaclePool;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Transform obstacleParent;
 
-    [SerializeField] private int minObstacles = 0;
-    [SerializeField] private int maxObstacles = 6;
-
+    private Dictionary<ObstacleType, List<ObstacleSO>> categorizedPool = new Dictionary<ObstacleType, List<ObstacleSO>>();
     private void Start() {
-        Spawn();
+        InitializePool();
+        SpawnWithPattern();
     }
 
-    public void Spawn() {
-        int obstacleCount = Random.Range(minObstacles, maxObstacles + 1);
+    private void InitializePool() {
+        categorizedPool = obstaclePool
+            .GroupBy(so => so.obstacleType)
+            .ToDictionary(g => g.Key, g => g.ToList());
 
-        List<int> used = new List<int>();
+    }
 
-        for (int i = 0; i < obstacleCount; i++) {
-            int index;
+    private void SpawnObstacle(int index, ObstacleType targetType) {
+        Transform spawnPoint = spawnPoints[index];
+        if (!categorizedPool.TryGetValue(targetType, out var validObstacles)) return;
+        if (validObstacles.Count == 0) return;
+        int obstacleIndex = UnityEngine.Random.Range(0, validObstacles.Count);
+        ObstacleSO selectedSo = validObstacles[obstacleIndex];
+        Quaternion rotation = Quaternion.identity;
+        if (selectedSo.canRotate) {
+            rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0, 4) * 90f, 0);
+        }
+        GameObject obj = Instantiate(selectedSo.preFab, spawnPoint.position, rotation);
+        obj.transform.SetParent(obstacleParent, true); 
+    }
 
-            do {
-                index = Random.Range(0, spawnPoints.Length);
-            } while (used.Contains(index));
-
-            used.Add(index);
-
-            Transform spawnPoint = spawnPoints[index];
-
-            Vector3 offset = new Vector3(0, 0, Random.Range(-0.1f, 0.1f));
-
-            int obstacleIndex = Random.Range(0, obstaclePrefabs.Length);
-            GameObject obstacle = obstaclePrefabs[obstacleIndex];
-
-            Quaternion rotation = Quaternion.identity;
-
-            if (!(obstacleIndex == 3 || obstacleIndex == 4)) {
-                rotation = Quaternion.Euler(0, Random.Range(0, 4) * 90f, 0);
+    private void SpawnWithPattern() {
+        ObstacleType[,] spawningPattern = new ObstacleType[,] {
+            { ObstacleType.jump, ObstacleType.empty, ObstacleType.jump },
+            { ObstacleType.jump, ObstacleType.empty, ObstacleType.empty },
+            { ObstacleType.empty, ObstacleType.empty, ObstacleType.jump }
+        };
+        int rows = spawningPattern.GetLength(0);
+        int lanes = spawningPattern.GetLength(1);
+        for (int i=0; i<rows; i++) {
+            for (int j=0; j<lanes; j++) {
+                if (spawningPattern[i,j] != ObstacleType.empty) {
+                    int oneDIndex = i * lanes + j;
+                    SpawnObstacle(oneDIndex, spawningPattern[i,j]);
+                }
             }
-            GameObject obj = Instantiate(obstacle, spawnPoint.position + offset, rotation);
-            obj.transform.SetParent(obstacleParent, true); 
         }
     }
 

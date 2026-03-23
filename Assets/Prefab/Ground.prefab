@@ -266,25 +266,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae84968f4889a3dd8c6554d3aa186c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
-  obstaclePrefabs:
-  - {fileID: 4482604817117895502, guid: f61f248ea99dfe602b82739efb2d4590, type: 3}
-  - {fileID: 3712453807264983175, guid: 2b62da3bae94364bfaf70e9af3a6fe9a, type: 3}
-  - {fileID: 4672797203201157687, guid: 2fdebf66006e75575bcdb2a12ddf318d, type: 3}
-  - {fileID: 6291094631541462245, guid: 8f57b99b94842ffb9a6968f75a3c9544, type: 3}
-  - {fileID: 6727610867286637415, guid: dfbb0850dcd38d1f0a9e0d1eb54e808a, type: 3}
+  obstaclePool:
+  - {fileID: 11400000, guid: ddca6dd8d839c576d84c91a6538c8c4c, type: 2}
+  - {fileID: 11400000, guid: a05e3a1542b8b1c5cbd14e00f57f9104, type: 2}
+  - {fileID: 11400000, guid: f32f0ebaf93a7d0fba1d9b7fd0e8a769, type: 2}
+  - {fileID: 11400000, guid: 179b69c22458a645db7a4c027a04855f, type: 2}
+  - {fileID: 11400000, guid: 3cae222a109e2e8f39b1dc0c64f3ecb9, type: 2}
   spawnPoints:
   - {fileID: 6297015403476159323}
-  - {fileID: 5027553110912566546}
-  - {fileID: 7900236361303126464}
   - {fileID: 8866282944995559349}
-  - {fileID: 7405451011959959505}
-  - {fileID: 1321204088452524389}
   - {fileID: 3972271030657860362}
+  - {fileID: 5027553110912566546}
+  - {fileID: 7405451011959959505}
   - {fileID: 3754438828538968169}
+  - {fileID: 7900236361303126464}
+  - {fileID: 1321204088452524389}
   - {fileID: 1675740330686068223}
   obstacleParent: {fileID: 4615489336117739273}
-  minObstacles: 0
-  maxObstacles: 6
 --- !u!1 &2614252211988361617
 GameObject:
   m_ObjectHideFlags: 0

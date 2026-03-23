@@ -26,9 +26,6 @@ public class PlayerController : MonoBehaviour {
         inputManager.moveRight -= InputManager_moveRight;
         inputManager.jump -= InputManager_jump;
     }
-    private void Update() {
-        Debug.Log(isOnGround);
-    }
     private void FixedUpdate() {
         PlayerRun();
         MoveToLane();
