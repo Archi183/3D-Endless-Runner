@@ -3,8 +3,8 @@ using System;
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] private GameInputManager inputManager;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private Rigidbody rb;
-    private float playerSpeed = 5f;
     private float laneDiastance = 2.5f;
     private float laneChangeSpeed = 6f;
     private float jumpForce = 5f;
@@ -46,7 +46,11 @@ public class PlayerController : MonoBehaviour {
         currentLane = Mathf.Clamp(currentLane, -1, 1);
     }
     private void PlayerRun() {
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, playerSpeed);
+        float speed = gameManager.GetSpeed();
+        Vector3 velocity = rb.linearVelocity;
+        velocity.z = speed;
+        rb.linearVelocity = velocity;
+        Debug.Log(rb.linearVelocity.y);
     }
     private void Jump() {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -54,13 +58,12 @@ public class PlayerController : MonoBehaviour {
         animator.SetTrigger("Jump");
     }
     private void MoveToLane() {
-    
         float targetX = currentLane * laneDiastance;
 
-        Vector3 targetPosition = new Vector3(targetX, transform.position.y, transform.position.z);
+        Vector3 position = rb.position;
+        float newX = Mathf.Lerp(position.x, targetX, laneChangeSpeed * Time.fixedDeltaTime);
 
-        transform.position = Vector3.Lerp(transform.position, targetPosition, laneChangeSpeed * Time.deltaTime);
-    
+        rb.MovePosition(new Vector3(newX, position.y, position.z));
     }
     private void CheckGround() {
         Vector3 origin = transform.position + Vector3.up * 0.5f;

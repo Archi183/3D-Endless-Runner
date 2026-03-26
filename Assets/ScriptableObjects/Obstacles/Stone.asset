@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a86dd986ff5f1699e9f40ad251951a2c, type: 3}
-  m_Name: Bench
+  m_Name: Stone
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSO
-  itemName: Bench
-  preFab: {fileID: 6291094631541462245, guid: 8f57b99b94842ffb9a6968f75a3c9544, type: 3}
+  itemName: Stone
+  preFab: {fileID: 4260460833833014167, guid: b189a5c13ac2a1a6a805e73e51151330, type: 3}
   obstacleType: 3
-  canRotate: 0
+  canRotate: 1
