@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour {
     private float laneDiastance = 2.5f;
     private float laneChangeSpeed = 6f;
     private float jumpForce = 5f;
-    private float groundCheckDistance = 0.5f;
+    private float radiusSphereCast = 0.3f;
+    private float maxSphereCastDistance = 0.6f;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Animator animator;
     private int currentLane = 0;
@@ -26,10 +27,12 @@ public class PlayerController : MonoBehaviour {
         inputManager.moveRight -= InputManager_moveRight;
         inputManager.jump -= InputManager_jump;
     }
+
     private void FixedUpdate() {
         PlayerRun();
         MoveToLane();
         CheckGround();
+        
     }
     private void InputManager_moveLeft(object sender, EventArgs e) {
         ChangeLane(-1);
@@ -39,6 +42,7 @@ public class PlayerController : MonoBehaviour {
     }
     private void InputManager_jump(object sender, EventArgs e) {
         if (!isOnGround) return;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         Jump();
     }
     private void ChangeLane(int x) {
@@ -50,7 +54,6 @@ public class PlayerController : MonoBehaviour {
         Vector3 velocity = rb.linearVelocity;
         velocity.z = speed;
         rb.linearVelocity = velocity;
-        Debug.Log(rb.linearVelocity.y);
     }
     private void Jump() {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -68,10 +71,12 @@ public class PlayerController : MonoBehaviour {
     private void CheckGround() {
         Vector3 origin = transform.position + Vector3.up * 0.5f;
 
-        if (Physics.Raycast(origin, Vector3.down, groundCheckDistance, groundLayer))
+        if (Physics.SphereCast(origin, radiusSphereCast, Vector3.down, out RaycastHit hit, maxSphereCastDistance, groundLayer)) {
             isOnGround = true;
-        else
+        } else {
             isOnGround = false;
+        }
+
     }
 }
 

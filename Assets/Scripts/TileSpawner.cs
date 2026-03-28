@@ -4,7 +4,7 @@ public class TileSpawner : MonoBehaviour {
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private int startingTiles = 5;
     [SerializeField] private float tileLength = 30f;
-    private float spawnZ = -10;
+    private float spawnZ = -10f;
 
     private void Start() {
         for (int i=0; i<startingTiles; i++) {
