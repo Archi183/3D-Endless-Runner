@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class TileScript : MonoBehaviour {
     private TileSpawner tileSpawner;    
-    [SerializeField] private float tileDeleteTime = 4f;
+    [SerializeField] private float tileDeleteTime = 6f;
 
     public void Init(TileSpawner spawner) {
         this.tileSpawner = spawner;
