@@ -11,13 +11,14 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private float speedGrowthFactorRate = 100f;
     private float distance;
     private float currentSpeed;
+    private bool startGame = false;
 
-    public float GetSpeed() {
-        return currentSpeed;
-    }
 
     private void Start() {
         currentSpeed = baseSpeed;
+        startGame = true;
+        StartCoroutine(gameAudioManager.PlayBGM(startGame));
+        StartCoroutine(gameAudioManager.PlaySoftWind(startGame));
     }
 
     private void OnEnable() {
@@ -52,4 +53,11 @@ public class GameManager : MonoBehaviour {
         float newSpeed = baseSpeed * Mathf.Pow(speedGrowthFactor, distance / speedGrowthFactorRate);
         currentSpeed = Mathf.Min(newSpeed, maxSpeed);
     }
+
+    public float GetSpeed() {
+        return currentSpeed;
+    }
+
+
+
 }

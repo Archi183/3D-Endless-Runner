@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 47104899}
   - component: {fileID: 47104898}
   - component: {fileID: 47104897}
+  - component: {fileID: 47104901}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -344,14 +345,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4c511947a8df7caaceb952d134c4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameAudioManager
+  fadeInDuration: 5
+  bgmTargetVol: 0.2
   run: {fileID: 8300000, guid: 2c63df0cf73ff1d5fae9acb02d266965, type: 3}
   jupm: {fileID: 8300000, guid: f1a6cee28a7a7179f8e19ceb430ab85d, type: 3}
   changeLane: {fileID: 8300000, guid: 8049a78984a4a72bea503b44c0781bcc, type: 3}
   optionSelect: {fileID: 8300000, guid: 64097208002af60e6955d2c38bc34ec7, type: 3}
+  softWindLarge: {fileID: 8300000, guid: 4d31506a89095f8fb9fe9221a17dcec5, type: 3}
+  softWindMid: {fileID: 8300000, guid: 0e4f9f2d77fccd6808fb6dbd727f8b1e, type: 3}
+  softWindSmall: {fileID: 8300000, guid: 4014bfcfb9e8c3c93ae0e72f44ed954d, type: 3}
   mainBgm: {fileID: 8300000, guid: eda752790dd415e1dbded2f09f86b1b5, type: 3}
   startingScreenBgm: {fileID: 8300000, guid: 2d15f88ac6718c509bd99bc76dc4cabd, type: 3}
   sfxSource: {fileID: 47104898}
   bgmSource: {fileID: 47104897}
+  windSource: {fileID: 47104901}
 --- !u!4 &47104900
 Transform:
   m_ObjectHideFlags: 0
@@ -367,6 +374,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &47104901
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47104896}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
