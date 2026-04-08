@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 
 public class PlayerController : MonoBehaviour {
+    public event EventHandler onLaneChange;
     [SerializeField] private GameInputManager inputManager;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private Rigidbody rb;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] Animator animator;
     private int currentLane = 0;
     private bool isOnGround = true;
+    private bool canChangeLane = true;
 
 
     // System
@@ -35,9 +37,11 @@ public class PlayerController : MonoBehaviour {
         
     }
     private void InputManager_moveLeft(object sender, EventArgs e) {
+        if (!CanChangeLane(-1)) return;
         ChangeLane(-1);
     }
     private void InputManager_moveRight(object sender, EventArgs e) {
+        if (!CanChangeLane(1)) return;
         ChangeLane(1);
     }
     private void InputManager_jump(object sender, EventArgs e) {
@@ -47,7 +51,7 @@ public class PlayerController : MonoBehaviour {
     }
     private void ChangeLane(int x) {
         currentLane += x;
-        currentLane = Mathf.Clamp(currentLane, -1, 1);
+        onLaneChange?.Invoke(this, EventArgs.Empty);
     }
     private void PlayerRun() {
         float speed = gameManager.GetSpeed();
@@ -77,6 +81,16 @@ public class PlayerController : MonoBehaviour {
             isOnGround = false;
         }
 
+    }
+
+    private bool CanChangeLane(int i) {
+        if (currentLane+i >= -1 & currentLane+i <= 1) canChangeLane = true;
+        else canChangeLane = false;
+        return canChangeLane; 
+    }
+
+    public bool IsOnGround() {
+        return isOnGround;
     }
 }
 

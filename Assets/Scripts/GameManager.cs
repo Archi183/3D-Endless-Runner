@@ -1,6 +1,10 @@
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour {
+    [SerializeField] private GameAudioManager gameAudioManager;
+    [SerializeField] private GameInputManager inputManager;
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private float baseSpeed = 5f;
     [SerializeField] private float speedGrowthFactor = 1.05f;
     [SerializeField] private float maxSpeed = 12f;
@@ -14,6 +18,25 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         currentSpeed = baseSpeed;
+    }
+
+    private void OnEnable() {
+        playerController.onLaneChange += PlayerController_OnLaneChange;
+        inputManager.jump += InputManager_jump_gameManager;
+    }
+    private void OnDisable() {
+        playerController.onLaneChange -= PlayerController_OnLaneChange;
+        inputManager.jump -= InputManager_jump_gameManager;
+    }
+
+    
+    private void PlayerController_OnLaneChange(object sender, EventArgs e) {
+        gameAudioManager.PlayChangelane();
+    }
+
+    private void InputManager_jump_gameManager(object sender, EventArgs e) {
+        if(!playerController.IsOnGround()) return;
+        gameAudioManager.PlayJump();
     }
 
     private void Update() {
