@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine.InputSystem.XR;
 
 public class GameAudioManager : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 5f;
@@ -16,21 +18,27 @@ public class GameAudioManager : MonoBehaviour {
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource windSource;
+    [SerializeField] private AudioSource runSource;
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private GameManager gameManager;
 
     private void Start() {
-        
+        runSource.volume = 0.35f;
     }
 
     public void PlayJump() {
+        sfxSource.volume = 1f;
         sfxSource.PlayOneShot(jupm);
     }
-    public void PlayRun() {
-        sfxSource.PlayOneShot(run);
+    public void Run() {
+        runSource.PlayOneShot(run);
     }
     public void PlayChangelane() {
+        sfxSource.volume = 1f;
         sfxSource.PlayOneShot(changeLane);
     }
     public void PlayOptionSelect() {
+        sfxSource.volume = 1f;
         sfxSource.PlayOneShot(optionSelect);
     }
 
@@ -65,8 +73,8 @@ public class GameAudioManager : MonoBehaviour {
         windSource.Play();
     }
 
-    public IEnumerator PlaySoftWind(bool startGame) {
-        while (startGame) {
+    public IEnumerator PlaySoftWind(GameState gameState) {
+        while (gameState == GameState.playing) {
             float waitRandom = UnityEngine.Random.Range(5f, 20f);
 
             yield return new WaitForSeconds(waitRandom);
@@ -79,8 +87,8 @@ public class GameAudioManager : MonoBehaviour {
         }
     }
 
-    public IEnumerator PlayBGM(bool startGame) {
-        while (startGame) {
+    public IEnumerator PlayBGM(GameState gameState) {
+        while (gameState == GameState.playing) {
             yield return new WaitForSeconds(30f);
 
             MainBGM();
@@ -104,6 +112,19 @@ public class GameAudioManager : MonoBehaviour {
         }
 
         audioSource.volume = targetVolume;
+    }
+
+    public IEnumerator PlayRun(float runInterval) {
+        float checkInterval = 0.1f;
+        while (true) {
+            if (gameManager.gameState == GameState.playing && playerController.IsOnGround()) {
+                Run();
+                yield return new WaitForSeconds(runInterval);
+            }
+            else {
+                yield return new WaitForSeconds(checkInterval);
+            }
+        }
     }
 
 }

@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
     private float laneDiastance = 2.5f;
     private float laneChangeSpeed = 6f;
-    private float jumpForce = 5f;
+    private float jumpForce = 5.8f;
     private float radiusSphereCast = 0.3f;
     private float maxSphereCastDistance = 0.6f;
     [SerializeField] LayerMask groundLayer;

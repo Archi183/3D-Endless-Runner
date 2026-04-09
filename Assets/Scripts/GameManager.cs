@@ -1,6 +1,12 @@
 using UnityEngine;
 using System;
 
+public enum GameState {
+    waitingToStart,
+    playing,
+    gameOver
+}
+
 public class GameManager : MonoBehaviour {
     [SerializeField] private GameAudioManager gameAudioManager;
     [SerializeField] private GameInputManager inputManager;
@@ -11,14 +17,16 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private float speedGrowthFactorRate = 100f;
     private float distance;
     private float currentSpeed;
-    private bool startGame = false;
+    [SerializeField] private float runInterval = 1f;
+    public GameState gameState = GameState.waitingToStart;
 
 
     private void Start() {
         currentSpeed = baseSpeed;
-        startGame = true;
-        StartCoroutine(gameAudioManager.PlayBGM(startGame));
-        StartCoroutine(gameAudioManager.PlaySoftWind(startGame));
+        gameState = GameState.playing;
+        StartCoroutine(gameAudioManager.PlayBGM(gameState));
+        StartCoroutine(gameAudioManager.PlaySoftWind(gameState));
+        StartCoroutine(gameAudioManager.PlayRun(runInterval));
     }
 
     private void OnEnable() {
@@ -43,6 +51,7 @@ public class GameManager : MonoBehaviour {
     private void Update() {
         CalculateDistance();
         UpdateSpeed();
+        Debug.Log(playerController.IsOnGround());
     }
 
     private void CalculateDistance() {
