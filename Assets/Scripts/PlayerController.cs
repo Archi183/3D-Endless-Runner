@@ -8,10 +8,11 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
     private float laneDiastance = 2.5f;
     private float laneChangeSpeed = 6f;
-    private float jumpForce = 5.8f;
+    private float jumpForce = 6f;
     private float radiusSphereCast = 0.3f;
     private float maxSphereCastDistance = 0.6f;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] LayerMask obstacleLayer;
     [SerializeField] Animator animator;
     private int currentLane = 0;
     private bool isOnGround = true;
