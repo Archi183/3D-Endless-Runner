@@ -10,6 +10,7 @@ public class GameAudioManager : MonoBehaviour {
     [SerializeField] private AudioClip jupm;
     [SerializeField] private AudioClip changeLane;
     [SerializeField] private AudioClip optionSelect;
+    [SerializeField] private AudioClip gameOver;
     [SerializeField] private AudioClip softWindLarge;
     [SerializeField] private AudioClip softWindMid;
     [SerializeField] private AudioClip softWindSmall;
@@ -40,6 +41,10 @@ public class GameAudioManager : MonoBehaviour {
     public void PlayOptionSelect() {
         sfxSource.volume = 1f;
         sfxSource.PlayOneShot(optionSelect);
+    }
+    public void PlayGameOver() {
+        sfxSource.volume = 1f;
+        sfxSource.PlayOneShot(gameOver);
     }
 
     public void MainBGM() {

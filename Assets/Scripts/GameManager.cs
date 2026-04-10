@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour {
             gameOverUI.SetActive(true);
             Time.timeScale = 0f;
             isPaused = true;
+            gameAudioManager.PlayGameOver();
             gameAudioManager.SetGameAudioPaused(isPaused);
         }
     }
@@ -117,7 +118,5 @@ public class GameManager : MonoBehaviour {
     public float GetSpeed() {
         return currentSpeed;
     }
-
-
 
 }
