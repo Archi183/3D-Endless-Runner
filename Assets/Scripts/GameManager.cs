@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour {
             gameOverUI.SetActive(true);
             Time.timeScale = 0f;
             isPaused = true;
+            gameAudioManager.SetGameAudioPaused(isPaused);
         }
     }
 
@@ -98,15 +99,19 @@ public class GameManager : MonoBehaviour {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        gameAudioManager.SetGameAudioPaused(isPaused);
     }
     public void Pause() {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        gameAudioManager.SetGameAudioPaused(isPaused);
     }
     public void Restart() {
+        isPaused = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameAudioManager.SetGameAudioPaused(isPaused);
     }
 
     public float GetSpeed() {

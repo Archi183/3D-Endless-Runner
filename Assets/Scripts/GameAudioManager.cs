@@ -54,6 +54,18 @@ public class GameAudioManager : MonoBehaviour {
         bgmSource.Play();
     }
 
+    public void SetGameAudioPaused(bool isPaused) {
+        if (isPaused) {
+            bgmSource.Pause();
+            windSource.Pause();
+            runSource.Pause();
+        } else {
+            bgmSource.UnPause();
+            windSource.UnPause();
+            runSource.UnPause();
+        }
+    }
+
     public void PlaySoftWindLarge() {
         windSource.clip = softWindLarge;
         windSource.loop = false;
