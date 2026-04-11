@@ -352,12 +352,12 @@ MonoBehaviour:
   jupm: {fileID: 8300000, guid: f1a6cee28a7a7179f8e19ceb430ab85d, type: 3}
   changeLane: {fileID: 8300000, guid: 8049a78984a4a72bea503b44c0781bcc, type: 3}
   optionSelect: {fileID: 8300000, guid: 64097208002af60e6955d2c38bc34ec7, type: 3}
+  optionSelectReverse: {fileID: 8300000, guid: 331bb39d5f64cba23b6819dade9cde76, type: 3}
   gameOver: {fileID: 8300000, guid: 0f1ebc6c71b09bb4ab19832897abbca1, type: 3}
   softWindLarge: {fileID: 8300000, guid: 4d31506a89095f8fb9fe9221a17dcec5, type: 3}
   softWindMid: {fileID: 8300000, guid: 0e4f9f2d77fccd6808fb6dbd727f8b1e, type: 3}
   softWindSmall: {fileID: 8300000, guid: 4014bfcfb9e8c3c93ae0e72f44ed954d, type: 3}
   mainBgm: {fileID: 8300000, guid: eda752790dd415e1dbded2f09f86b1b5, type: 3}
-  startingScreenBgm: {fileID: 8300000, guid: 2d15f88ac6718c509bd99bc76dc4cabd, type: 3}
   sfxSource: {fileID: 47104898}
   bgmSource: {fileID: 47104897}
   windSource: {fileID: 47104901}

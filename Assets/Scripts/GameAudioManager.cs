@@ -10,12 +10,12 @@ public class GameAudioManager : MonoBehaviour {
     [SerializeField] private AudioClip jupm;
     [SerializeField] private AudioClip changeLane;
     [SerializeField] private AudioClip optionSelect;
+    [SerializeField] private AudioClip optionSelectReverse;
     [SerializeField] private AudioClip gameOver;
     [SerializeField] private AudioClip softWindLarge;
     [SerializeField] private AudioClip softWindMid;
     [SerializeField] private AudioClip softWindSmall;
     [SerializeField] private AudioClip mainBgm;
-    [SerializeField] private AudioClip startingScreenBgm;
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource windSource;
@@ -38,27 +38,23 @@ public class GameAudioManager : MonoBehaviour {
         sfxSource.volume = 1f;
         sfxSource.PlayOneShot(changeLane);
     }
-    public void PlayOptionSelect() {
-        sfxSource.volume = 1f;
-        sfxSource.PlayOneShot(optionSelect);
-    }
     public void PlayGameOver() {
         sfxSource.volume = 1f;
         sfxSource.PlayOneShot(gameOver);
     }
-
     public void MainBGM() {
         bgmSource.clip = mainBgm;
         bgmSource.loop = false;
         bgmSource.Play();
     }
-
-    public void StartingBGM() {
-        bgmSource.clip = startingScreenBgm;
-        bgmSource.loop = false;
-        bgmSource.Play();
+    public void PlayOptionSelect() {
+        sfxSource.volume = 1f;
+        sfxSource.PlayOneShot(optionSelect);
     }
-
+    public void PlayOptionSelectReverse() {
+        sfxSource.volume = 1f;
+        sfxSource.PlayOneShot(optionSelectReverse);
+    }
     public void SetGameAudioPaused(bool isPaused) {
         if (isPaused) {
             bgmSource.Pause();
@@ -70,7 +66,6 @@ public class GameAudioManager : MonoBehaviour {
             runSource.UnPause();
         }
     }
-
     public void PlaySoftWindLarge() {
         windSource.clip = softWindLarge;
         windSource.loop = false;
@@ -89,7 +84,6 @@ public class GameAudioManager : MonoBehaviour {
         windSource.volume = 0.5f;
         windSource.Play();
     }
-
     public IEnumerator PlaySoftWind(GameState gameState) {
         while (gameState == GameState.playing) {
             float waitRandom = UnityEngine.Random.Range(5f, 20f);
@@ -103,7 +97,6 @@ public class GameAudioManager : MonoBehaviour {
 
         }
     }
-
     public IEnumerator PlayBGM(GameState gameState) {
         while (gameState == GameState.playing) {
             yield return new WaitForSeconds(30f);
@@ -116,7 +109,6 @@ public class GameAudioManager : MonoBehaviour {
             yield return new WaitForSeconds(UnityEngine.Random.Range(30f, 121f));
         }
     }
-
     public IEnumerator FadeIn(AudioSource audioSource, float duration, float targetVolume) {
         float currentTime = 0;
         audioSource.volume = 0;
@@ -130,7 +122,6 @@ public class GameAudioManager : MonoBehaviour {
 
         audioSource.volume = targetVolume;
     }
-
     public IEnumerator PlayRun(float runInterval) {
         float checkInterval = 0.1f;
         while (true) {
