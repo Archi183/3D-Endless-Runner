@@ -1,7 +1,6 @@
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms;
 using TMPro;
 
 public enum GameState {
@@ -33,7 +32,6 @@ public class GameManager : MonoBehaviour {
     public GameState gameState = GameState.waitingToStart;
     public static GameManager Instance {get; private set;}
 
-    
 
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -51,14 +49,15 @@ public class GameManager : MonoBehaviour {
         LoadHighestScore();
         UpdateHighestScoreUI();
         currentSpeed = baseSpeed;
-        gameState = GameState.playing;
+        GamePlay();
         isPaused = false;
-        StartCoroutine(gameAudioManager.PlayBGM(gameState));
-        StartCoroutine(gameAudioManager.PlaySoftWind(gameState));
+        StartCoroutine(gameAudioManager.PlayBGM());
+        StartCoroutine(gameAudioManager.PlaySoftWind());
         StartCoroutine(gameAudioManager.PlayRun(runInterval));
     }
 
     private void Update() {
+        Debug.Log(gameState);
         CalculateDistance();
         UpdateSpeed();
         UpdateScore();
@@ -132,6 +131,14 @@ public class GameManager : MonoBehaviour {
         onPlayingUI.SetActive(value);
     }
 
+    private void GameWait() {
+        gameState = GameState.waitingToStart;
+    }
+
+    private void GamePlay() {
+        gameState = GameState.playing;
+    }
+
     public void GameOver() {
         if (gameState != GameState.gameOver) {
             PlayingUI(false);
@@ -149,6 +156,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Resume() {
+        GamePlay();
         PlayingUI(true);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
@@ -157,6 +165,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Pause() {
+        GameWait();
         PlayingUI(false);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
@@ -165,16 +174,29 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Restart() {
+        GameWait();
         PlayingUI(true);
         LoadHighestScore();
         isPaused = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         gameAudioManager.SetGameAudioPaused(isPaused);
+        GamePlay();
     }
 
     public float GetSpeed() {
         return currentSpeed;
+    }
+
+    public void ExitToTitle() {
+        GameWait();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("StartScene");
+    }
+
+    public void ExitToDesktop() {
+        Debug.Log("Quit Game");
+        Application.Quit();
     }
 
 }
